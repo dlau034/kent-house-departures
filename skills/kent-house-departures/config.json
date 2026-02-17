@@ -1,0 +1,15 @@
+{
+  "stationCode": "KTH",
+  "stationName": "Kent House",
+  "apiProvider": "transportapi",
+  "transportApi": {
+    "appId": "9f6210b6",
+    "apiKey": "e65a661273c5349ebbb9e724bb8146d2"
+  },
+  "realtimeTrains": {
+    "username": "",
+    "password": ""
+  },
+  "refreshInterval": 60,
+  "maxDepartures": 10
+}

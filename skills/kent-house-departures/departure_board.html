@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kent House Station - Live Departures</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .header {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 20px;
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .header h1 {
+            font-size: 28px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .header .subtitle {
+            opacity: 0.8;
+            font-size: 14px;
+        }
+        .board {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+        .board-header {
+            background: #003366;
+            color: white;
+            padding: 16px 20px;
+            display: grid;
+            grid-template-columns: 80px 1fr 60px 100px;
+            gap: 12px;
+            font-weight: 600;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .departure {
+            display: grid;
+            grid-template-columns: 80px 1fr 60px 100px;
+            gap: 12px;
+            padding: 16px 20px;
+            border-bottom: 1px solid #e0e0e0;
+            transition: background 0.2s;
+        }
+        .departure:hover {
+            background: #f5f5f5;
+        }
+        .departure:last-child {
+            border-bottom: none;
+        }
+        .time {
+            font-weight: 700;
+            font-size: 18px;
+            color: #003366;
+        }
+        .time.delayed {
+            color: #e67e22;
+        }
+        .destination {
+            font-weight: 500;
+            color: #333;
+        }
+        .platform {
+            text-align: center;
+            font-weight: 700;
+            color: #666;
+        }
+        .status {
+            text-align: right;
+            font-weight: 600;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 6px;
+        }
+        .status.ontime {
+            color: #27ae60;
+        }
+        .status.delayed {
+            color: #e67e22;
+        }
+        .status.cancelled {
+            color: #e74c3c;
+        }
+        .status-icon {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+        .status-icon.ontime {
+            background: #27ae60;
+        }
+        .status-icon.delayed {
+            background: #e67e22;
+        }
+        .status-icon.cancelled {
+            background: #e74c3c;
+        }
+        .footer {
+            background: #f8f9fa;
+            padding: 12px 20px;
+            text-align: center;
+            color: #666;
+            font-size: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .refresh-indicator {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .spinner {
+            width: 12px;
+            height: 12px;
+            border: 2px solid #ddd;
+            border-top-color: #003366;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        .empty-state {
+            padding: 60px 20px;
+            text-align: center;
+            color: #666;
+        }
+        .empty-state-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+        }
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
+            .header h1 {
+                font-size: 22px;
+            }
+            .board-header {
+                display: none;
+            }
+            .departure {
+                grid-template-columns: 1fr;
+                gap: 8px;
+            }
+            .departure > div {
+                display: flex;
+                justify-content: space-between;
+            }
+            .departure > div::before {
+                font-weight: 600;
+                color: #666;
+                font-size: 12px;
+                text-transform: uppercase;
+            }
+            .time::before { content: "Time"; }
+            .destination::before { content: "Destination"; }
+            .platform::before { content: "Platform"; }
+            .status::before { content: "Status"; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚆 Kent House</h1>
+            <div class="subtitle">Live Departure Board • Updated 00:18:14</div>
+        </div>
+        
+        <div class="board">
+            <div class="board-header">
+                <div>Time</div>
+                <div>Destination</div>
+                <div>Plat</div>
+                <div>Status</div>
+            </div>
+<div class="departure">
+                <div class="time ">00:19</div>
+                <div class="destination">Orpington</div>
+                <div class="platform">3</div>
+                <div class="status ontime">
+                    <span class="status-icon ontime"></span>
+                    On Time
+                </div>
+            </div>
+<div class="departure">
+                <div class="time ">00:39</div>
+                <div class="destination">London Victoria</div>
+                <div class="platform">None</div>
+                <div class="status ontime">
+                    <span class="status-icon ontime"></span>
+                    On Time
+                </div>
+            </div>
+<div class="departure">
+                <div class="time ">01:27</div>
+                <div class="destination">Orpington</div>
+                <div class="platform">None</div>
+                <div class="status ontime">
+                    <span class="status-icon ontime"></span>
+                    On Time
+                </div>
+            </div>
+            <div class="footer">
+                <div class="refresh-indicator">
+                    <div class="spinner"></div>
+                    <span>Refreshing in <span id="countdown">60</span>s</span>
+                </div>
+                <div>Data provided by TransportAPI</div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        let seconds = 60;
+        const countdownEl = document.getElementById('countdown');
+        
+        setInterval(() => {
+            seconds--;
+            if (seconds <= 0) {
+                window.location.reload();
+            } else {
+                countdownEl.textContent = seconds;
+            }
+        }, 1000);
+    </script>
+</body>
+</html>
